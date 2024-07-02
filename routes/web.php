@@ -7,6 +7,8 @@ use App\Http\Controllers\Account\LogoutController;
 use App\Http\Controllers\Account\ProccessController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\UpdateProfileController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/book/{id}', [HomeController::class, 'detail'])->name('home.detail');
+Route::post('/save-book-review', [HomeController::class, 'review'])->name('home.review');
 
 Route::group(['namespace' => 'Account', 'prefix' => 'account'], function () {
     Route::group(['middleware' => 'guest'], function () {
@@ -36,6 +38,12 @@ Route::group(['namespace' => 'Account', 'prefix' => 'account'], function () {
         Route::get('profile', [ProfileController::class, 'profile'])->name('account.profile');
         Route::get('logout', [LogoutController::class, 'logout'])->name('account.logout');
         Route::post('update-profile', [UpdateProfileController::class, 'update'])->name('account.update');
+        Route::get('books', [BookController::class, 'bookIndex'])->name('account.bookIndex');
+        Route::get('books/create', [BookController::class, 'bookCreate'])->name('account.bookCreate');
+        Route::post('books', [BookController::class, 'bookStore'])->name('account.bookStore');
+        Route::get('books/edit/{id}', [BookController::class, 'bookEdit'])->name('account.bookEdit');
+        Route::post('books/edit/{id}', [BookController::class, 'bookUpdate'])->name('account.bookUpdate');
+        Route::delete('/account/book/{id}', [BookController::class, 'bookDestroy'])->name('account.bookDestroy');
     });
    
 });

@@ -1,7 +1,7 @@
 <ul class="nav flex-column">
   @if (Auth::user()->role == 'admin')
     <li class="nav-item">
-        <a href="book-listing.html">Books</a>                               
+        <a href="{{route('account.bookIndex')}}">Books</a>                               
     </li>
     <li class="nav-item">
         <a href="reviews.html">Reviews</a>                               
@@ -20,3 +20,4 @@
         <a href="{{route('account.logout')}}">Logout</a>
     </li>                           
 </ul>
+

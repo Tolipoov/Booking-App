@@ -6,25 +6,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class ProccessController extends Controller
 { 
 public function process(Request $request)
     {
-        $validator = $request->validate([
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:5',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+       
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        Auth::login($user); // Optionally log the user in after registration
-
-        return redirect()->route('account.profile')->with('success', 'Your account has been registered.');
+        return redirect()->route('account.login')->with('success', 'You are now registered. Please log in.');
     }
 }
