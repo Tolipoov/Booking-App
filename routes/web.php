@@ -6,6 +6,7 @@ use App\Http\Controllers\Account\LoginController;
 use App\Http\Controllers\Account\LogoutController;
 use App\Http\Controllers\Account\ProccessController;
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\ReviewController;
 use App\Http\Controllers\Account\UpdateProfileController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
@@ -32,6 +33,7 @@ Route::group(['namespace' => 'Account', 'prefix' => 'account'], function () {
         Route::post('register', [ProccessController::class, 'process'])->name('account.process');
         Route::get('login', [LoginController::class, 'login'])->name('account.login');
         Route::post('login', [AuthenticateController::class, 'authenticate'])->name('account.authenticate');
+       
     });
    
     Route::group(['middleware' => 'auth'], function () {    
@@ -43,7 +45,15 @@ Route::group(['namespace' => 'Account', 'prefix' => 'account'], function () {
         Route::post('books', [BookController::class, 'bookStore'])->name('account.bookStore');
         Route::get('books/edit/{id}', [BookController::class, 'bookEdit'])->name('account.bookEdit');
         Route::post('books/edit/{id}', [BookController::class, 'bookUpdate'])->name('account.bookUpdate');
-        Route::delete('/account/book/{id}', [BookController::class, 'bookDestroy'])->name('account.bookDestroy');
+        Route::delete('/account/book/{id}', [BookController::class, 'bookDestroy'])->name('account.bookDestroy'); 
+        Route::get('review', [ReviewController::class, 'review'])->name('review.review');
+        Route::get('review/{id}', [ReviewController::class, 'reviewEdit'])->name('review.reviewEdit');
+        Route::post('review/{id}', [ReviewController::class, 'updateReview'])->name('review.updateReview');
+        Route::delete('/reviews/{id}', [ReviewController::class, 'reviewDestroy'])->name('review.reviewDestroy');
+
+        
+        Route::get('my-review', [AccountController::class, 'myReview'])->name('account.review.myReview');
+
     });
    
 });

@@ -4,14 +4,14 @@
         <a href="{{route('account.bookIndex')}}">Books</a>                               
     </li>
     <li class="nav-item">
-        <a href="reviews.html">Reviews</a>                               
+        <a href="{{route('review.review')}}">Reviews</a>                               
     </li>
   @endif
     <li class="nav-item">
         <a href="{{route('account.profile')}}">Profile</a>                               
     </li>
     <li class="nav-item">
-        <a href="my-reviews.html">My Reviews</a>
+        <a href="{{route('account.review.myReview')}}">My Reviews</a>
     </li>
     <li class="nav-item">
         <a href="change-password.html">Change Password</a>

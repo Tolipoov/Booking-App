@@ -38,13 +38,13 @@
                     <div class="card-body pb-0">            
                        <div class="d-flex justify-content-between">
                             <a href="{{route('account.bookCreate')}}" class="btn btn-primary">Add Book</a>         
-                                <form action="" method="get">
-                                    <div class="d-flex">
-                                        <input type="text" name="keyword" value="{{Request::get('keyword')}}" class="form-control me-2" placeholder="Keyword">
-                                        <button type="submit" class="btn btn-primary ms-2">Search</button>
-                                        <a href="{{route('account.bookIndex')}}" class="btn btn-warning ms-2">Clear</a>
-                                    </div>   
-                                </form>
+                            <form action="" method="get">
+                                <div class="d-flex">
+                                    <input type="text" name="keyword" value="{{Request::get('keyword')}}" class="form-control me-2" placeholder="Keyword">
+                                    <button type="submit" class="btn btn-primary ms-2">Search</button>
+                                    <a href="{{route('account.bookIndex')}}" class="btn btn-warning ms-2">Clear</a>
+                                </div>   
+                            </form>
                        </div>
                         <table class="table  table-striped mt-3">
                             <thead class="table-dark">
@@ -72,7 +72,7 @@
                                                     <a href="#" class="btn btn-success btn-sm"><i class="fa-regular fa-star"></i></a>
                                                     <a href="{{route('account.bookEdit', $book->id)}}" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                    <form action="{{ route('account.bookDestroy', $book->id) }}" method="POST" style="display:inline;">
+                                                    <form action="{{ route('account.bookDestroy', $book->id) }}" onsubmit="return confirm('Are you sure you want to delete this review?');" method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">
