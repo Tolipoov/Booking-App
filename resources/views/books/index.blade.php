@@ -2,33 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row my-5">
-            <div class="col-md-3">
-                <div class="card border-0 shadow-lg">
-                    <div class="card-header  text-white">
-                        Welcome, {{Auth::user()->name}}                        
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center mb-3">
-                            @if(Auth::user()->image != "")
-                            <img src="{{asset('/uploads/thumb/' .Auth::user()->image)}}" class="img-fluid rounded-circle" alt="{{Auth::user()->name}}">       
-                            @endif                     
-                        </div>
-                        <div class="h5 text-center">
-                            <strong>{{Auth::user()->name}} </strong>
-                            <p class="h6 mt-2 text-muted">5 Reviews</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-0 shadow-lg mt-3">
-                    <div class="card-header  text-white">
-                        Navigation
-                    </div>
-                    <div class="card-body sidebar">
-                      @include('layouts.sidebar')
-                    </div>
-                </div>                
-            </div>
+        <div class="row">
+          @include('layouts.sidebar')
             <div class="col-md-9">
                 @include('layouts.message')
                 <div class="card border-0 shadow">
@@ -51,7 +26,7 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Author</th>
-                                    <th>Rating</th>
+                                    <th>Raviews</th>
                                     <th>Status</th>
                                     <th width="150">Action</th>
                                 </tr>
@@ -59,9 +34,10 @@
                                     @if ($books->isnotEmpty())
                                         @foreach ($books as $book)
                                             <tr>
+                                              
                                                 <td>{{$book->title}}</td>
                                                 <td>{{$book->author}}</td>
-                                                <td>3.0 (3 Reviews)</td>
+                                                <td>{{$book->reviews->count()}} Reviews</td>
                                                 <td>
                                                 @if($book->status == 1)
                                                     <span class="text-success">Active</span>    

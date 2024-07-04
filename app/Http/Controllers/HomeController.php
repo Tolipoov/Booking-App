@@ -62,7 +62,7 @@ class HomeController extends Controller
        $review->save();
 
        $book = Book::findOrfail($request->book_id);
-       $book->review_count = $book->review_count + 1;
+       $book->review_count = $book->reviews()->count();
        $book->save();
 
        session()->flash('success', 'Thank you for your review');

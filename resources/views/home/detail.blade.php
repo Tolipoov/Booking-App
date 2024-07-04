@@ -18,7 +18,7 @@
                 <div class="col-md-8">
 
                     @include('layouts.message')
-
+                      
                     <h3 class="h2 mb-3">{{$book->title}}</h3>
                     <div class="h4 text-muted">{{$book->author}}</div>
                     <div class="star-rating d-inline-flex ml-2" title="">
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="theme-font text-muted">(0 Review)</span>
+                        <span class="theme-font text-muted">({{$book->reviews->count()}} Review)</span>
                     </div>
 
                     <div class="content mt-3">
@@ -57,6 +57,7 @@
                         </div>
                         @if ($randomBooks->isNotEmpty())
                             @foreach ($randomBooks as $randomBook)
+
                             <div class="col-md-4 col-lg-4 mb-4">
                                 <div class="card border-0 shadow-lg">
                                     <a href="{{route('home.detail', $randomBook->id)}}">

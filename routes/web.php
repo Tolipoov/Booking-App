@@ -53,7 +53,9 @@ Route::group(['namespace' => 'Account', 'prefix' => 'account'], function () {
 
         
         Route::get('my-review', [AccountController::class, 'myReview'])->name('account.review.myReview');
-
+        Route::get('my-review/{id}', [AccountController::class, 'myReviewEdit'])->name('account.review.myReviewEdit');
+        Route::post('my-review/{id}', [AccountController::class, 'updateMyReview'])->name('account.review.updateMyReview');
+        Route::delete('/my-reviews/{id}', [AccountController::class, 'myReviewDestroy'])->name('account.review.myReviewDestroy');
     });
    
 });

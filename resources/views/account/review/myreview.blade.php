@@ -2,43 +2,16 @@
 
 @section('content')
 <div class="container">
-    <div class="row my-5">
-        <div class="col-md-3">
-            <div class="card border-0 shadow-lg">
-                <div class="card-header  text-white">
-                    Welcome, {{Auth::user()->name}}                       
-                </div>
-                <div class="card-body">
-                    <div class="text-center mb-3">
-                       @if (Auth::user()->image != "")
-                            <img src="{{asset('/uploads/thumb/' .Auth::user()->image)}}" class="img-fluid rounded-circle" alt="Luna John">     
-                        @else
-                            <img src="images/profile-img-1.jpg" class="img-fluid rounded-circle" alt="Luna John">
-                       @endif                       
-                    </div>
-                    <div class="h5 text-center">
-                        <strong>{{Auth::user()->name}}    </strong>
-                        <p class="h6 mt-2 text-muted">5 Reviews</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card border-0 shadow-lg mt-3">
-                <div class="card-header  text-white">
-                    Navigation
-                </div>
-                <div class="card-body sidebar">
-                  @include('layouts.sidebar')
-                </div>
-            </div>                
-        </div>
+    <div class="row ">
+       @include('layouts.sidebar')
         <div class="col-md-9">
-            
+            @include('layouts.message')
             <div class="card border-0 shadow">
                 <div class="card-header  text-white">
                     My Reviews
                 </div>
                 <div class="d-flex justify-content-between px-3 mt-4">
-                    <form action="" method="get" class="w-100">
+                    <form action="" method="GET" class="w-100">
                         <div class="d-flex">
                             <input type="text" name="keyword" value="{{Request::get('keyword')}}" class="form-control me-2" placeholder="Keyword">
                             <button type="submit" class="btn btn-primary ms-2">Search</button>
@@ -71,9 +44,13 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square"></i>
+                                            <a href="{{route('account.review.myReviewEdit', $review->id)}}" class="btn btn-primary btn-sm"><i class=" fa-regular fa-pen-to-square"></i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                            <form action="{{ route('account.review.myReviewDestroy', $review->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this review?');"  style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-regular fa-trash-can"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                    @endforeach

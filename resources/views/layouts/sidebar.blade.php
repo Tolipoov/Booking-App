@@ -1,23 +1,58 @@
-<ul class="nav flex-column">
-  @if (Auth::user()->role == 'admin')
-    <li class="nav-item">
-        <a href="{{route('account.bookIndex')}}">Books</a>                               
-    </li>
-    <li class="nav-item">
-        <a href="{{route('review.review')}}">Reviews</a>                               
-    </li>
-  @endif
-    <li class="nav-item">
-        <a href="{{route('account.profile')}}">Profile</a>                               
-    </li>
-    <li class="nav-item">
-        <a href="{{route('account.review.myReview')}}">My Reviews</a>
-    </li>
-    <li class="nav-item">
-        <a href="change-password.html">Change Password</a>
-    </li> 
-    <li class="nav-item">
-        <a href="{{route('account.logout')}}">Logout</a>
-    </li>                           
-</ul>
 
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header  text-white">
+                    Welcome, {{Auth::user()->name}}                       
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                       @if (Auth::user()->image != "")
+                            <img src="{{asset('/uploads/thumb/' .Auth::user()->image)}}" class="img-fluid rounded-circle" alt="Luna John">     
+                        @else
+                            <img src="{{asset('images/user.png')}}" class="img-fluid rounded-circle w-50" alt="Luna John"> 
+                       @endif                       
+                    </div>
+                    <div class="h5 text-center">
+                        <strong>{{Auth::user()->name}}    </strong>
+                        <p class="h6 mt-2 text-muted"> Number of Reviews: 
+                            @if (Auth::user()->role == 'admin')
+                                {{$allMyreview->count()}}
+                            @else
+                                {{$allMyreviews->count()}}
+                            @endif
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-0 shadow-lg mt-3">
+                <div class="card-header  text-white">
+                    Navigation
+                </div>
+                <div class="card-body sidebar">
+                    <ul class="nav flex-column">
+                        @if (Auth::user()->role == 'admin')
+                          <li class="nav-item">
+                              <a href="{{route('account.bookIndex')}}">Books</a>                               
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('review.review')}}">Reviews</a>                               
+                          </li>
+                        @endif
+                          <li class="nav-item">
+                              <a href="{{route('account.profile')}}">Profile</a>                               
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('account.review.myReview')}}">My Reviews</a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="change-password.html">Change Password</a>
+                          </li> 
+                          <li class="nav-item">
+                              <a href="{{route('account.logout')}}">Logout</a>
+                          </li>                           
+                      </ul>
+                </div>
+            </div>                
+        </div>
